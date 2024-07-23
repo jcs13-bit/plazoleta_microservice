@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/plazoleta_microservice.iml" filepath="$PROJECT_DIR$/.idea/plazoleta_microservice.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/plazoleta_microservice.plazoleta_microservice.main.iml" filepath="$PROJECT_DIR$/.idea/modules/plazoleta_microservice.plazoleta_microservice.main.iml" />
+    </modules>
+  </component>
+</project>
