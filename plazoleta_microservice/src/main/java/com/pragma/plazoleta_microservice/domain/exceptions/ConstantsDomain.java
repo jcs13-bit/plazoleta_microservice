@@ -13,6 +13,8 @@ public class ConstantsDomain {
 
     public static final String OWNER_NOT_MATCHING ="The id provided is not an owner";
 
+    public static final String DISH_NOT_FOUND_EXCEPTION_MESSAGE = "Dish not found";
+
 
 
 }

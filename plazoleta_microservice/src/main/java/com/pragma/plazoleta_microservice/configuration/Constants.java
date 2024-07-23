@@ -14,5 +14,7 @@ public class Constants {
 
     public static final String VALUE_FORMAT = "%s: %s";
 
+    public static final String DISH_NOT_FOUND_EXCEPTION_MESSAGE = "Dish not found";
+
 
 }

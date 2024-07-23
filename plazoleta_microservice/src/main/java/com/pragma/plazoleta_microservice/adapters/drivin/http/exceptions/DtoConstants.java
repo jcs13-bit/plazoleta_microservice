@@ -19,6 +19,12 @@ public class DtoConstants {
 
     public static final String FIELD_PRICE_IS_VALID_MESSAGE = "Field 'Price' Not is a valid Price";
 
+    public static final String FIELD_DESCRIPTION_LENGTH_MESSAGE = "Field 'Description' cannot be longer than 250 characters";
+
+    public static final String FIELD_DESCRIPTION_EMPTY_MESSAGE = "Field 'Description' cannot be empty";
+
+    public static final String FIELD_ID_IS_EMPTY_MESSAGE = "Field 'Id' cannot be empty";
+
 
 
 

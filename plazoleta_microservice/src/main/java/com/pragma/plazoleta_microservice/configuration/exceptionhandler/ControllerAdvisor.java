@@ -3,6 +3,7 @@ package com.pragma.plazoleta_microservice.configuration.exceptionhandler;
 import com.pragma.plazoleta_microservice.adapters.driven.jpa.mysql.exception.ValueAlreadyExistsException;
 import com.pragma.plazoleta_microservice.configuration.Constants;
 import com.pragma.plazoleta_microservice.domain.exceptions.ConstantsDomain;
+import com.pragma.plazoleta_microservice.domain.exceptions.DishNotFoundException;
 import com.pragma.plazoleta_microservice.domain.exceptions.NitRestaurantAlreadyExistsException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -72,6 +73,11 @@ public class ControllerAdvisor {
     @ExceptionHandler(NitRestaurantAlreadyExistsException.class)
     public ResponseEntity<ExceptionResponse> handleNitRestaurantAlreadyExistsException(){
         return ResponseEntity.badRequest().body(new ExceptionResponse(ConstantsDomain.NIT_ALREADY_EXISTS, HttpStatus.CONFLICT.toString(), LocalDateTime.now()));
+    }
+
+    @ExceptionHandler(DishNotFoundException.class)
+    public ResponseEntity<ExceptionResponse> handleDishNotFoundException(){
+        return ResponseEntity.badRequest().body(new ExceptionResponse(Constants.DISH_NOT_FOUND_EXCEPTION_MESSAGE, HttpStatus.CONFLICT.toString(), LocalDateTime.now()));
     }
 
 
