@@ -2,10 +2,8 @@ package com.pragma.plazoleta_microservice.domain.api.usecase;
 
 import com.pragma.plazoleta_microservice.adapters.client.IUserClient;
 import com.pragma.plazoleta_microservice.adapters.drivin.http.dto.response.OwnerResponse;
-import com.pragma.plazoleta_microservice.domain.exceptions.ConstantsDomain;
-import com.pragma.plazoleta_microservice.domain.exceptions.IdOwnerNotMatchingException;
-import com.pragma.plazoleta_microservice.domain.exceptions.NitRestaurantAlreadyExistsException;
-import com.pragma.plazoleta_microservice.domain.exceptions.OwnerNotFoundException;
+import com.pragma.plazoleta_microservice.domain.api.IRestaurantServicePort;
+import com.pragma.plazoleta_microservice.domain.exceptions.*;
 import com.pragma.plazoleta_microservice.domain.model.Restaurant;
 import com.pragma.plazoleta_microservice.domain.spi.IRestaurantPersistencePort;
 
@@ -51,6 +49,14 @@ public class RestaurantUseCase implements IRestaurantServicePort {
         if (restaurant.isPresent()) {
             throw new NitRestaurantAlreadyExistsException(ConstantsDomain.NIT_ALREADY_EXISTS);
         }
+    }
+
+    private Restaurant getRestaurantById(Long id) {
+        Optional<Restaurant> restaurant = restaurantPersistencePort.findById(id);
+        if (!restaurant.isPresent()) {
+            throw new RestaurantNotFoundException(ConstantsDomain.OWNER_NOT_FOUND);
+        }
+        return restaurant.get();
     }
 
 }

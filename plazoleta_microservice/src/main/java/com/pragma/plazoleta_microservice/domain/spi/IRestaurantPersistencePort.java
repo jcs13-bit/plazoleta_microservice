@@ -10,4 +10,7 @@ public interface IRestaurantPersistencePort {
 
 
     Optional<Restaurant> findByNit(String nit);
+
+
+    Optional<Restaurant> findById(Long id);
 }

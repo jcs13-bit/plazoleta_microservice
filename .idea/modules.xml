@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/plazoleta_microservice.iml" filepath="$PROJECT_DIR$/.idea/plazoleta_microservice.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/plazoleta_microservice.plazoleta_microservice.main.iml" filepath="$PROJECT_DIR$/.idea/modules/plazoleta_microservice.plazoleta_microservice.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/plazoleta_microservice.plazoleta_microservice.test.iml" filepath="$PROJECT_DIR$/.idea/modules/plazoleta_microservice.plazoleta_microservice.test.iml" />
     </modules>
   </component>
 </project>

@@ -29,4 +29,10 @@ public class RestaurantAdapter implements IRestaurantPersistencePort {
     }
 
 
+    @Override
+    public Optional<Restaurant> findById(Long id) {
+        return restaurantRepository.findById(id).map(restaurantEntityMapper::toModel);
+    }
+
+
 }

@@ -6,8 +6,11 @@ import com.pragma.plazoleta_microservice.domain.model.Dish;
 import com.pragma.plazoleta_microservice.domain.spi.IDishPersistencePort;
 import lombok.RequiredArgsConstructor;
 
+import java.util.Optional;
+
 @RequiredArgsConstructor
 public class DishAdapter  implements IDishPersistencePort {
+
     private final IDishRepository dishRepository;
     private final IDishEntityMapper dishEntityMapper;
 
@@ -17,4 +20,15 @@ public class DishAdapter  implements IDishPersistencePort {
         dish.setActive(true);
         dishRepository.save(dishEntityMapper.toEntity(dish));
     }
+
+    @Override
+    public Optional<Dish> findDishById(Long id) {
+        return dishRepository.findById(id).map(dishEntityMapper::toModel);
+    }
+
+    @Override
+    public void updateDish(Dish dish) {
+        dishRepository.save(dishEntityMapper.toEntity(dish));
+    }
+
 }
