@@ -7,4 +7,7 @@ public interface IDishServicePort {
     void saveDish(Dish dish);
 
     void updateDish(Long idDish, String description, Integer price);
+
+    void changeStatusDish(Long id);
+
 }

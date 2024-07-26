@@ -39,4 +39,16 @@ public class DishRestControllerAdapter {
         dishServicePort.updateDish(request.getId(),request.getDescription(),request.getPrice());
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
+    @PreAuthorize("hasRole('OWNER')")
+    @PatchMapping("/changeStatusDish/")
+    @Operation(summary = "Endpoint to change the status of a dish")
+    public ResponseEntity <Void> changeStatusDish(@RequestParam Long id){
+        dishServicePort.changeStatusDish(id);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+
+
+
+
 }

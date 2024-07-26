@@ -44,6 +44,13 @@ public class DishUseCase implements IDishServicePort {
         dishPersistencePort.updateDish(dish);
 
     }
+    @Override
+    public void changeStatusDish(Long id) {
+        Dish dish = getDishById(id);
+        validateOwner(dish.getRestaurantId());
+        dish.setActive(!dish.getActive());
+        dishPersistencePort.updateDish(dish);
+    }
 
     private void  validateOwner(Long idRestaurant) {
 
@@ -61,6 +68,7 @@ public class DishUseCase implements IDishServicePort {
         }
         return dishSearch.get();
     }
+
 
 
 
