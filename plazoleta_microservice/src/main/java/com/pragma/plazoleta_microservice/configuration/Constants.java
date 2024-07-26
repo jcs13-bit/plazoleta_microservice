@@ -15,6 +15,12 @@ public class Constants {
     public static final String VALUE_FORMAT = "%s: %s";
 
     public static final String DISH_NOT_FOUND_EXCEPTION_MESSAGE = "Dish not found";
+    public static final String RESTAURANT_NOT_FOUND_EXCEPTION_MESSAGE = "Restaurant not found";
+
+    public static final String USER_NOT_FOUND = "User not found";
+
+    public static final String OWNER_NOT_FOUND = "Owner not found";
+
 
 
 }

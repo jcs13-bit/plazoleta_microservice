@@ -15,6 +15,8 @@ public class ConstantsDomain {
 
     public static final String DISH_NOT_FOUND_EXCEPTION_MESSAGE = "Dish not found";
 
+    public static final String USER_NOT_FOUND = "User not found";
+
 
 
 }

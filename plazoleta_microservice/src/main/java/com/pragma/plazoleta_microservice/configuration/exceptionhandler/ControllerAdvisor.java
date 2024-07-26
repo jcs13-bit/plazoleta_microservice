@@ -2,9 +2,7 @@ package com.pragma.plazoleta_microservice.configuration.exceptionhandler;
 
 import com.pragma.plazoleta_microservice.adapters.driven.jpa.mysql.exception.ValueAlreadyExistsException;
 import com.pragma.plazoleta_microservice.configuration.Constants;
-import com.pragma.plazoleta_microservice.domain.exceptions.ConstantsDomain;
-import com.pragma.plazoleta_microservice.domain.exceptions.DishNotFoundException;
-import com.pragma.plazoleta_microservice.domain.exceptions.NitRestaurantAlreadyExistsException;
+import com.pragma.plazoleta_microservice.domain.exceptions.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -78,6 +76,23 @@ public class ControllerAdvisor {
     @ExceptionHandler(DishNotFoundException.class)
     public ResponseEntity<ExceptionResponse> handleDishNotFoundException(){
         return ResponseEntity.badRequest().body(new ExceptionResponse(Constants.DISH_NOT_FOUND_EXCEPTION_MESSAGE, HttpStatus.CONFLICT.toString(), LocalDateTime.now()));
+    }
+
+    @ExceptionHandler(RestaurantNotFoundException.class)
+    public ResponseEntity<ExceptionResponse> handleRestaurantNotFoundException(){
+        return ResponseEntity.badRequest().body(new ExceptionResponse(Constants.RESTAURANT_NOT_FOUND_EXCEPTION_MESSAGE, HttpStatus.CONFLICT.toString(), LocalDateTime.now()));
+    }
+
+
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<ExceptionResponse> handleUserNotFoundException(){
+        return ResponseEntity.badRequest().body(new ExceptionResponse(Constants.USER_NOT_FOUND, HttpStatus.CONFLICT.toString(), LocalDateTime.now()));
+    }
+
+    @ExceptionHandler(OwnerNotFoundException.class)
+    public ResponseEntity<ExceptionResponse> handleOwnerNotFoundException(){
+        return ResponseEntity.badRequest().body(new ExceptionResponse(Constants.OWNER_NOT_FOUND, HttpStatus.CONFLICT.toString(), LocalDateTime.now()));
     }
 
 
