@@ -2,7 +2,7 @@ package com.pragma.plazoleta_microservice.adapters.drivin.http.controller;
 
 import com.pragma.plazoleta_microservice.adapters.drivin.http.dto.request.AddDishRequest;
 import com.pragma.plazoleta_microservice.adapters.drivin.http.mapper.IDishRequestMapper;
-import com.pragma.plazoleta_microservice.domain.api.usecase.IDishServicePort;
+import com.pragma.plazoleta_microservice.domain.api.IDishServicePort;
 import com.pragma.plazoleta_microservice.domain.model.Dish;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

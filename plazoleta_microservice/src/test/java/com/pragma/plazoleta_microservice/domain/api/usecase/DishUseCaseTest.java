@@ -118,4 +118,12 @@ private IDishPersistencePort dishPersistencePort;
         verify(securityPersistencePort).getIdUser();
         verify(dishPersistencePort, never()).updateDish(dish);
     }
+
+    @Test
+    void testChangeStatusDish() {
+        Long idDish = 1L;
+        Dish dish = new Dish(2L, "test description", 150, "description", "urlImage", 222L, 333L, true);
+        when(dishPersistencePort.findDishById(idDish)).thenReturn(Optional.of(dish));
+        when(securityPersistencePort.getIdUser()).thenReturn(333L);
+    }
 }

@@ -11,5 +11,4 @@ public interface IDishRepository extends JpaRepository<DishEntity, Long> {
 
 
 
-
 }
