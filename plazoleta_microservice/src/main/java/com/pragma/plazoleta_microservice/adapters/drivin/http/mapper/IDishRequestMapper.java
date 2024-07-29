@@ -9,4 +9,6 @@ import org.mapstruct.Mapping;
 public interface IDishRequestMapper {
     @Mapping(target = "id", ignore = true)
     Dish addRequestToDish(AddDishRequest addDishRequest);
+
+
 }

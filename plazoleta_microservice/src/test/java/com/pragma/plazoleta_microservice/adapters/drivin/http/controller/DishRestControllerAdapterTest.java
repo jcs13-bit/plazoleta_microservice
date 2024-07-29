@@ -2,6 +2,7 @@ package com.pragma.plazoleta_microservice.adapters.drivin.http.controller;
 
 import com.pragma.plazoleta_microservice.adapters.drivin.http.dto.request.AddDishRequest;
 import com.pragma.plazoleta_microservice.adapters.drivin.http.mapper.IDishRequestMapper;
+import com.pragma.plazoleta_microservice.adapters.drivin.http.mapper.IDishResponseMapper;
 import com.pragma.plazoleta_microservice.domain.api.IDishServicePort;
 import com.pragma.plazoleta_microservice.domain.model.Dish;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,10 +24,12 @@ class DishRestControllerAdapterTest {
 
     private DishRestControllerAdapter dishRestControllerAdapter;
 
+    private IDishResponseMapper dishResponseMapper;
+
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        dishRestControllerAdapter = new DishRestControllerAdapter(dishServicePort, dishRequestMapper);
+        dishRestControllerAdapter = new DishRestControllerAdapter(dishServicePort, dishRequestMapper,dishResponseMapper);
     }
 
     @Test
