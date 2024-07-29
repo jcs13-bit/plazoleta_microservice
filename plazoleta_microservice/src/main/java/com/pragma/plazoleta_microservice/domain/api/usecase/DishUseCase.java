@@ -4,13 +4,17 @@ import com.pragma.plazoleta_microservice.domain.api.IDishServicePort;
 import com.pragma.plazoleta_microservice.domain.exceptions.ConstantsDomain;
 import com.pragma.plazoleta_microservice.domain.exceptions.DishNotFoundException;
 import com.pragma.plazoleta_microservice.domain.exceptions.OwnerNotFoundException;
+import com.pragma.plazoleta_microservice.domain.exceptions.RestaurantNotFoundException;
 import com.pragma.plazoleta_microservice.domain.model.Dish;
 import com.pragma.plazoleta_microservice.domain.model.Restaurant;
 import com.pragma.plazoleta_microservice.domain.spi.IDishPersistencePort;
 import com.pragma.plazoleta_microservice.domain.spi.IRestaurantPersistencePort;
 import com.pragma.plazoleta_microservice.domain.spi.ISecurityPersistencePort;
 
+import java.util.Comparator;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class DishUseCase implements IDishServicePort {
     private final IDishPersistencePort dishPersistencePort;
@@ -68,6 +72,20 @@ public class DishUseCase implements IDishServicePort {
         }
         return dishSearch.get();
     }
+
+    @Override
+    public List<Dish> getAllDishes(Integer page, Integer size, Long categoryId, Long restaurantId) {
+        Optional<Restaurant> restaurant = restaurantPersistencePort.findById(restaurantId);
+        if (restaurant.isEmpty()) {
+            throw new RestaurantNotFoundException(ConstantsDomain.RESTAURANT_NOT_FOUND);
+        }
+        List<Dish> dishes = dishPersistencePort.getAllDishes(page, size, categoryId, restaurant.get().getId());
+        return dishes.stream()
+                .sorted(Comparator.comparing(Dish::getName))
+                .collect(Collectors.toList());
+    }
+
+
 
 
 

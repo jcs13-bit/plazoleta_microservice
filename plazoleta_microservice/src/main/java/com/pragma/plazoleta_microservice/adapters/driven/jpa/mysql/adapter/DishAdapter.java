@@ -5,7 +5,9 @@ import com.pragma.plazoleta_microservice.adapters.driven.jpa.mysql.repository.ID
 import com.pragma.plazoleta_microservice.domain.model.Dish;
 import com.pragma.plazoleta_microservice.domain.spi.IDishPersistencePort;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -29,6 +31,15 @@ public class DishAdapter  implements IDishPersistencePort {
     @Override
     public void updateDish(Dish dish) {
         dishRepository.save(dishEntityMapper.toEntity(dish));
+    }
+
+    @Override
+    public List<Dish>getAllDishes(Integer page, Integer size, Long categoryId, Long restaurantId) {
+        if (categoryId != null) {
+            return dishRepository.findAllByCategoryId(categoryId,  PageRequest.of(page, size)).stream().map(dishEntityMapper::toModel).toList();
+        }
+        return dishRepository.findAll(PageRequest.of(page, size)).stream().map(dishEntityMapper::toModel).toList();
+
     }
 
 
