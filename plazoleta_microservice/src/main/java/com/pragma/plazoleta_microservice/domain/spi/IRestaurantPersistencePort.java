@@ -2,6 +2,7 @@ package com.pragma.plazoleta_microservice.domain.spi;
 
 import com.pragma.plazoleta_microservice.domain.model.Restaurant;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface IRestaurantPersistencePort {
@@ -13,4 +14,9 @@ public interface IRestaurantPersistencePort {
 
 
     Optional<Restaurant> findById(Long id);
+
+
+    List<Restaurant> getAllRestaurants(Integer page, Integer size);
+
+
 }

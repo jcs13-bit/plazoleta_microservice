@@ -7,7 +7,10 @@ import com.pragma.plazoleta_microservice.domain.exceptions.*;
 import com.pragma.plazoleta_microservice.domain.model.Restaurant;
 import com.pragma.plazoleta_microservice.domain.spi.IRestaurantPersistencePort;
 
+import java.util.Comparator;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 public class RestaurantUseCase implements IRestaurantServicePort {
@@ -57,6 +60,14 @@ public class RestaurantUseCase implements IRestaurantServicePort {
             throw new RestaurantNotFoundException(ConstantsDomain.OWNER_NOT_FOUND);
         }
         return restaurant.get();
+    }
+
+    @Override
+    public List<Restaurant> getAllRestaurants(Integer page, Integer size) {
+        List<Restaurant> restaurants = restaurantPersistencePort.getAllRestaurants(page, size);
+        return restaurants.stream()
+                .sorted(Comparator.comparing(Restaurant::getName))
+                .collect(Collectors.toList());
     }
 
 }

@@ -10,9 +10,12 @@ import com.pragma.plazoleta_microservice.domain.model.Restaurant;
 import com.pragma.plazoleta_microservice.domain.spi.IRestaurantPersistencePort;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -33,6 +36,10 @@ class RestaurantUseCaseTest {
         MockitoAnnotations.initMocks(this);
         restaurantUseCase = new RestaurantUseCase(restaurantPersistencePort, userClient);
     }
+
+
+
+
 
     @Test
     public void saveRestaurant_whenRestaurantAlreadyExists_throwsNitRestaurantAlreadyExistsException() {
@@ -81,6 +88,28 @@ class RestaurantUseCaseTest {
 
         // Assert
         verify(restaurantPersistencePort).saveRestaurant(restaurant);
+    }
+
+
+
+    @Test
+    void testGetAllRestaurants() {
+        // Arrange
+        Restaurant restaurant1 = new Restaurant(2L, "Sushi Place", "123456789", "123 Main Street", "555-1234", "https://sample.com/logo.png", 101L);
+        Restaurant restaurant2 = new Restaurant(3L,"Burger Joint","989", "test Main Street", "555-1234", "testUrl", 1032L);
+        Restaurant restaurant3 = new Restaurant(4L,"Pasta House","1032", "test calle", "555-1234", "testUrl", 108L);
+
+        when(restaurantPersistencePort.getAllRestaurants(0, 3))
+                .thenReturn(Arrays.asList(restaurant3, restaurant1, restaurant2));
+
+        // Act
+        List<Restaurant> result = restaurantUseCase.getAllRestaurants(0, 3);
+
+        // Assert
+        assertEquals(3, result.size());
+        assertEquals("Burger Joint", result.get(0).getName());
+        assertEquals("Pasta House", result.get(1).getName());
+        assertEquals("Sushi Place", result.get(2).getName());
     }
 
 
