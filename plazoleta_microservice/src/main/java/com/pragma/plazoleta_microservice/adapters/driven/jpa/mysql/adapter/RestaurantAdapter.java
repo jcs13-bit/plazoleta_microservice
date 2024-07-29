@@ -6,6 +6,7 @@ import com.pragma.plazoleta_microservice.domain.model.Restaurant;
 import com.pragma.plazoleta_microservice.domain.spi.IRestaurantPersistencePort;
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -33,6 +34,13 @@ public class RestaurantAdapter implements IRestaurantPersistencePort {
     public Optional<Restaurant> findById(Long id) {
         return restaurantRepository.findById(id).map(restaurantEntityMapper::toModel);
     }
+
+
+    @Override
+    public List<Restaurant> getAllRestaurants(Integer page, Integer size) {
+        return restaurantRepository.findAll().stream().map(restaurantEntityMapper::toModel).toList();
+    }
+
 
 
 }
