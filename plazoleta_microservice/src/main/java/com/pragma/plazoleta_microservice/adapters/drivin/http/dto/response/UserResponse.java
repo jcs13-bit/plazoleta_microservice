@@ -18,5 +18,8 @@ public class UserResponse {
     private final LocalDate birthDate;
     private final String password;
 
+    private final String role;
+
+
 
 }

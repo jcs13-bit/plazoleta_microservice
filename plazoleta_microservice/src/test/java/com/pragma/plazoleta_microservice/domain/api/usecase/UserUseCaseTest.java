@@ -47,7 +47,7 @@ class UserUseCaseTest {
     @Test
     void testRegisterEmployeeSuccess() {
         // Given
-        UserResponse userResponse = new UserResponse(1L, "username", "password", "firstName", "lastName", "email", LocalDate.of(2020, 1, 1), "role");
+        UserResponse userResponse = new UserResponse(1L, "username", "password", "firstName", "lastName", "email", LocalDate.of(2020, 1, 1), "role","EMPLOYEE");
         Restaurant restaurant = new Restaurant(2L, "Sample Restaurant", "123456789", "123 Main Street", "555-1234", "https://sample.com/logo.png", 1L);
         restaurant.setOwnerId(1L);
 
@@ -66,7 +66,7 @@ class UserUseCaseTest {
     @Test
     void testRegisterEmployeeUserNotFound() {
         // Given
-        UserResponse userResponse = new UserResponse(1L, "username", "password", "firstName", "lastName", "email", LocalDate.of(2020, 1, 1), "role");
+        UserResponse userResponse = new UserResponse(1L, "username", "password", "firstName", "lastName", "email", LocalDate.of(2020, 1, 1), "role","EMPLOYEE");
         Restaurant restaurant = new Restaurant(2L, "Sample Restaurant", "123456789", "123 Main Street", "555-1234", "https://sample.com/logo.png", 1L);
         restaurant.setOwnerId(1L);
 
@@ -82,7 +82,7 @@ class UserUseCaseTest {
     @Test
     void testRegisterEmployeeOwnerNotFound() {
         // Given
-        UserResponse userResponse = new UserResponse(1L, "username", "password", "firstName", "lastName", "email", LocalDate.of(2020, 1, 1), "role");
+        UserResponse userResponse = new UserResponse(1L, "username", "password", "firstName", "lastName", "email", LocalDate.of(2020, 1, 1), "role","EMPLOYEE");
         Restaurant restaurant = new Restaurant(2L, "Sample Restaurant", "123456789", "123 Main Street", "555-1234", "https://sample.com/logo.png", 1L);
         restaurant.setOwnerId(2L);
 

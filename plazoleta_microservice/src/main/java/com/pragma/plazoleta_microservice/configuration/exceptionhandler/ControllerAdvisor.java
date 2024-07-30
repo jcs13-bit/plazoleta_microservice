@@ -1,5 +1,7 @@
 package com.pragma.plazoleta_microservice.configuration.exceptionhandler;
 
+import com.pragma.plazoleta_microservice.adapters.driven.jpa.mysql.exception.OrderStateChangeException;
+import com.pragma.plazoleta_microservice.adapters.driven.jpa.mysql.exception.RoleNotCorrectException;
 import com.pragma.plazoleta_microservice.adapters.driven.jpa.mysql.exception.ValueAlreadyExistsException;
 import com.pragma.plazoleta_microservice.configuration.Constants;
 import com.pragma.plazoleta_microservice.domain.exceptions.*;
@@ -93,6 +95,16 @@ public class ControllerAdvisor {
     @ExceptionHandler(OwnerNotFoundException.class)
     public ResponseEntity<ExceptionResponse> handleOwnerNotFoundException(){
         return ResponseEntity.badRequest().body(new ExceptionResponse(Constants.OWNER_NOT_FOUND, HttpStatus.CONFLICT.toString(), LocalDateTime.now()));
+    }
+
+    @ExceptionHandler(RoleNotCorrectException.class)
+    public ResponseEntity<ExceptionResponse> handleRoleNotCorrectException(){
+        return ResponseEntity.badRequest().body(new ExceptionResponse(Constants.ROLE_BAD, HttpStatus.CONFLICT.toString(), LocalDateTime.now()));
+    }
+
+    @ExceptionHandler(OrderStateChangeException.class)
+    public ResponseEntity<ExceptionResponse> handleOrderStateChangeException(){
+        return ResponseEntity.badRequest().body(new ExceptionResponse(Constants.ORDER_STATE_CHANGE_EXCEPTION, HttpStatus.CONFLICT.toString(), LocalDateTime.now()));
     }
 
 

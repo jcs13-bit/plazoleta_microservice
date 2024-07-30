@@ -1,8 +1,8 @@
 package com.pragma.plazoleta_microservice.domain.api.usecase;
 
-import com.pragma.plazoleta_microservice.adapters.drivin.http.dto.response.DishResponse;
+
 import com.pragma.plazoleta_microservice.domain.api.IDishServicePort;
-import com.pragma.plazoleta_microservice.domain.api.IRestaurantServicePort;
+
 import com.pragma.plazoleta_microservice.domain.exceptions.ConstantsDomain;
 import com.pragma.plazoleta_microservice.domain.exceptions.DishNotFoundException;
 import com.pragma.plazoleta_microservice.domain.exceptions.OwnerNotFoundException;
@@ -14,11 +14,10 @@ import com.pragma.plazoleta_microservice.domain.spi.IRestaurantPersistencePort;
 import com.pragma.plazoleta_microservice.domain.spi.ISecurityPersistencePort;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
+
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
 
 import java.util.Arrays;
 import java.util.List;

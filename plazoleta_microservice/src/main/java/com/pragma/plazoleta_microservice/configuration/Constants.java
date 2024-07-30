@@ -21,6 +21,10 @@ public class Constants {
 
     public static final String OWNER_NOT_FOUND = "Owner not found";
 
+    public static final String ROLE_BAD = "The user not have the correct role";
+
+    public static final String ORDER_STATE_CHANGE_EXCEPTION = "The order state cannot be changed";
+
 
 
 }
