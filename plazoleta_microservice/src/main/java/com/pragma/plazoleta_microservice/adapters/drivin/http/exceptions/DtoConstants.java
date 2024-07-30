@@ -58,12 +58,25 @@ public class DtoConstants {
 
     public static final String FIELD_RESTAURANT_ID_NULL_MESSAGE = "Field 'Restaurant Id' cannot be null";
 
+    public static final String DISHES_IS_EMPTY_MESSAGE = "Field 'Dishes' cannot be empty";
 
 
+    public static final String FIELD_DISH_ID_NULL_MESSAGE = "Field 'Dish Id' cannot be null";
 
 
+    public static final String FIELD_QUANTITY_NULL_MESSAGE = "Field 'Quantity' cannot be null";
 
 
+    public static final String FIELD_QUANTITY_SIZE_MESSAGE = "Field 'Quantity' cannot be less than 1";
 
 
+    public static final String FIELD_DATE_FUTURE_MESSAGE = "Field 'Date' cannot be in the past";
+
+    public static final String FIELD_CHEF_ID_NULL_MESSAGE = "Field 'Chef Id' cannot be null";
+
+
+    public static final String FIELD_DISHES_NULL_MESSAGE = "Field 'Dishes' cannot be null";
+
+
+    public static final String FIELD_CLIENT_ID_NULL_MESSAGE = "Field 'Client Id' cannot be null";
 }

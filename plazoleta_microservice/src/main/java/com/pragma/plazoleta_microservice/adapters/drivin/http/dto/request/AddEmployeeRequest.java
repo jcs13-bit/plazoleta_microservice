@@ -39,8 +39,6 @@ public class AddEmployeeRequest {
     @NotBlank(message = DtoConstants.FIELD_PASSWORD_NULL_MESSAGE)
     private String password;
 
-
-
     @NotNull(message = DtoConstants.FIELD_RESTAURANT_ID_NULL_MESSAGE)
     private Long restaurantId;
 }
