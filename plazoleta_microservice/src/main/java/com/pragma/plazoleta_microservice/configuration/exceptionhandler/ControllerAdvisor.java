@@ -1,8 +1,7 @@
 package com.pragma.plazoleta_microservice.configuration.exceptionhandler;
 
-import com.pragma.plazoleta_microservice.adapters.driven.jpa.mysql.exception.OrderStateChangeException;
-import com.pragma.plazoleta_microservice.adapters.driven.jpa.mysql.exception.RoleNotCorrectException;
-import com.pragma.plazoleta_microservice.adapters.driven.jpa.mysql.exception.ValueAlreadyExistsException;
+import com.pragma.plazoleta_microservice.adapters.driven.jpa.mysql.exception.*;
+import com.pragma.plazoleta_microservice.adapters.util.services.exception.DataNotFoundException;
 import com.pragma.plazoleta_microservice.configuration.Constants;
 import com.pragma.plazoleta_microservice.domain.exceptions.*;
 import lombok.RequiredArgsConstructor;
@@ -106,7 +105,10 @@ public class ControllerAdvisor {
     public ResponseEntity<ExceptionResponse> handleOrderStateChangeException(){
         return ResponseEntity.badRequest().body(new ExceptionResponse(Constants.ORDER_STATE_CHANGE_EXCEPTION, HttpStatus.CONFLICT.toString(), LocalDateTime.now()));
     }
-
+    @ExceptionHandler(OrderNotFoundException.class)
+    public ResponseEntity<ExceptionResponse> handleDataNotFoundException(){
+        return ResponseEntity.badRequest().body(new ExceptionResponse(ConstantsAdapter.ORDER_NOT_FOUND, HttpStatus.CONFLICT.toString(), LocalDateTime.now()));
+    }
 
 
 

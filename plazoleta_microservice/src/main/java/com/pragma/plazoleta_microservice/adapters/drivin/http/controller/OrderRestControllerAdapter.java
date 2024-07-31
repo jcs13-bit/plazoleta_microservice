@@ -41,6 +41,12 @@ public class OrderRestControllerAdapter {
     ResponseEntity<List<OrderResponse>> getOrder(@RequestParam Integer page, Integer size, String status) {
         return ResponseEntity.ok(orderResponseMapper.toOrderResponseList(orderServicePort.getOrders(page, size, status)));
     }
+    @PreAuthorize("hasRole('EMPLOYEE')")
+    @PatchMapping("/takeOrder")
+    public ResponseEntity<Void> takeOrder(@RequestParam  Long idOrder) {
+        orderServicePort.takeOrder(idOrder);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
     
     
     
