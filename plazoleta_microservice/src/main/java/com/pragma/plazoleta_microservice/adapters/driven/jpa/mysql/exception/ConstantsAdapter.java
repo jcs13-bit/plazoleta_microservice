@@ -13,4 +13,11 @@ public class ConstantsAdapter {
 
     public static final String DISH_NOT_FOUND_EXCEPTION_MESSAGE = "Dish not found";
 
+    public static final String STATUS_INVALID_EXCEPTION_MESSAGE = "The status is invalid";
+    public static final String ORDER_NOT_FOUND = "Order not found";
+
+
+
+
+
 }

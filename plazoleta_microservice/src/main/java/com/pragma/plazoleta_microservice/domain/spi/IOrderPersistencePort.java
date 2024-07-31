@@ -9,4 +9,7 @@ public interface IOrderPersistencePort {
     void saveOrder(Order order);
 
     List<Order> getOrders(Integer page, Integer size, String status);
+
+
+    void takeOrder(Long idOrder);
 }

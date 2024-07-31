@@ -25,4 +25,9 @@ public class OrderUseCase implements IOrderServicePort {
         return orderPersistencePort.getOrders(page, size, status);
     }
 
+    @Override
+    public void takeOrder(Long idOrder) {
+        orderPersistencePort.takeOrder(idOrder);
+    }
+
 }

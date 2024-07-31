@@ -11,4 +11,6 @@ public interface IOrderServicePort {
     List<Order> getOrders(Integer page, Integer size, String status);
 
 
+    void takeOrder(Long idOrder);
+
 }

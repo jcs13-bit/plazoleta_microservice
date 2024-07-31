@@ -5,9 +5,7 @@ import com.pragma.plazoleta_microservice.adapters.driven.jpa.mysql.entity.DishEn
 import com.pragma.plazoleta_microservice.adapters.driven.jpa.mysql.entity.EmployeeWithRestaurantEntity;
 import com.pragma.plazoleta_microservice.adapters.driven.jpa.mysql.entity.OrderEntity;
 import com.pragma.plazoleta_microservice.adapters.driven.jpa.mysql.entity.RestaurantEntity;
-import com.pragma.plazoleta_microservice.adapters.driven.jpa.mysql.exception.ConstantsAdapter;
-import com.pragma.plazoleta_microservice.adapters.driven.jpa.mysql.exception.OrderStateChangeException;
-import com.pragma.plazoleta_microservice.adapters.driven.jpa.mysql.exception.RoleNotCorrectException;
+import com.pragma.plazoleta_microservice.adapters.driven.jpa.mysql.exception.*;
 import com.pragma.plazoleta_microservice.adapters.driven.jpa.mysql.mapper.IOrderEntityMapper;
 import com.pragma.plazoleta_microservice.adapters.driven.jpa.mysql.repository.IDishRepository;
 import com.pragma.plazoleta_microservice.adapters.driven.jpa.mysql.repository.IEmployeeWithRestaurantRepository;
@@ -16,6 +14,7 @@ import com.pragma.plazoleta_microservice.adapters.driven.jpa.mysql.repository.IR
 import com.pragma.plazoleta_microservice.adapters.drivin.http.dto.response.OwnerResponse;
 import com.pragma.plazoleta_microservice.adapters.drivin.http.dto.response.UserResponse;
 import com.pragma.plazoleta_microservice.adapters.util.services.exception.DataNotFoundException;
+import com.pragma.plazoleta_microservice.adapters.util.services.exception.OrderStatusEnum;
 import com.pragma.plazoleta_microservice.domain.exceptions.ConstantsDomain;
 import com.pragma.plazoleta_microservice.domain.exceptions.DishNotFoundException;
 import com.pragma.plazoleta_microservice.domain.exceptions.RestaurantNotFoundException;
@@ -106,5 +105,30 @@ public class OrderAdapter  implements IOrderPersistencePort {
         List<OrderEntity> orderEntities = orderRepository.findByRestaurantIdAndStatus(restaurantId, status,  pagination).getContent();
 
         return orderEntityMapper.toModelList(orderEntities);
+    }
+    @Override
+    public void takeOrder(Long orderId) {
+        Long idEmployee = securityPersistencePort.getIdUser();
+        OrderEntity orderEntity = orderRepository.findById(orderId).orElseThrow(() -> new OrderNotFoundException(ConstantsAdapter.ORDER_NOT_FOUND));
+
+        if(!orderEntity.getRestaurantId().equals(employeeWithRestaurantRepository.findRestaurantIdByEmployee(idEmployee).get().getRestaurantId())) {
+            throw new OrderNotFoundException(ConstantsAdapter.ORDER_NOT_FOUND);
+        }
+        orderEntity.setChefId(idEmployee);
+        orderEntity.setStatus(nextStatus(orderEntity.getStatus()));
+        orderRepository.save(orderEntity);
+    }
+    private String nextStatus (String status){
+
+        switch (status) {
+            case "PENDING":
+                return OrderStatusEnum.IN_PROGRESS.toString();
+            case "IN_PROGRESS":
+                return OrderStatusEnum.READY.toString();
+            case "READY":
+                return  OrderStatusEnum.DELIVERED.toString();
+            default:
+                throw new InvalidStatusException(ConstantsAdapter.STATUS_INVALID_EXCEPTION_MESSAGE);
+        }
     }
 }
