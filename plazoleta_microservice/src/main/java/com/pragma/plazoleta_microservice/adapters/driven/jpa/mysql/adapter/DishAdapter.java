@@ -36,9 +36,9 @@ public class DishAdapter  implements IDishPersistencePort {
     @Override
     public List<Dish>getAllDishes(Integer page, Integer size, Long categoryId, Long restaurantId) {
         if (categoryId != null) {
-            return dishRepository.findAllByCategoryId(categoryId,  PageRequest.of(page, size)).stream().map(dishEntityMapper::toModel).toList();
+            return dishRepository.findAllByRestaurantIdAndCategoryId(restaurantId,categoryId,  PageRequest.of(page, size)).stream().map(dishEntityMapper::toModel).toList();
         }
-        return dishRepository.findAll(PageRequest.of(page, size)).stream().map(dishEntityMapper::toModel).toList();
+        return dishRepository.findAllByRestaurantId(restaurantId,(PageRequest.of(page, size))).stream().map(dishEntityMapper::toModel).toList();
 
     }
 
