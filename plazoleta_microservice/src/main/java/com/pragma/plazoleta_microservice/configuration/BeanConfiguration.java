@@ -46,6 +46,8 @@ public class BeanConfiguration {
 
 
 
+
+
     @Bean
     public IRestaurantPersistencePort restaurantPersistencePort() {
 
@@ -81,15 +83,16 @@ public class BeanConfiguration {
         return new UserUseCase( employeeRestaurantPersistencePort,userClient, securityPersistencePort, restaurantPersistencePort);
     }
     @Bean
-    public IOrderPersistencePort orderPersistencePort() {
-        return new OrderAdapter(orderRepository, orderEntityMapper,restaurantRepository,userClient,dishRepository);
+    public IOrderPersistencePort orderPersistencePort(ISecurityPersistencePort securityPersistencePort) {
+        return new OrderAdapter(orderRepository, orderEntityMapper,restaurantRepository,userClient,dishRepository,securityPersistencePort, employeeWithRestaurantRepository);
 
     }
     @Bean
-    public IOrderServicePort orderServicePort(){
+    public IOrderServicePort orderServicePort(ISecurityPersistencePort securityPersistencePort){
 
-        return new OrderUseCase(orderPersistencePort());
+        return new OrderUseCase(orderPersistencePort(securityPersistencePort));
     }
+
 
 
 

@@ -16,6 +16,7 @@ import com.pragma.plazoleta_microservice.domain.exceptions.RestaurantNotFoundExc
 import com.pragma.plazoleta_microservice.domain.exceptions.UserNotFoundException;
 import com.pragma.plazoleta_microservice.domain.model.DishQuantify;
 import com.pragma.plazoleta_microservice.domain.model.Order;
+import com.pragma.plazoleta_microservice.domain.spi.ISecurityPersistencePort;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -50,6 +51,9 @@ class OrderAdapterTest {
 
     @InjectMocks
     private OrderAdapter orderAdapter;
+
+    @Mock
+    private ISecurityPersistencePort securityPersistencePort;
 
     @BeforeEach
     void setUp() {
@@ -179,6 +183,8 @@ class OrderAdapterTest {
         // Act & Assert
         assertThrows(DishNotFoundException.class, () -> orderAdapter.saveOrder(order));
     }
+
+
 
 
 }
