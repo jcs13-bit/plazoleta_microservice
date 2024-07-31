@@ -2,6 +2,7 @@ package com.pragma.plazoleta_microservice.adapters.driven.jpa.mysql.adapter;
 
 import com.pragma.plazoleta_microservice.adapters.client.IUserClient;
 import com.pragma.plazoleta_microservice.adapters.driven.jpa.mysql.entity.DishEntity;
+import com.pragma.plazoleta_microservice.adapters.driven.jpa.mysql.entity.EmployeeWithRestaurantEntity;
 import com.pragma.plazoleta_microservice.adapters.driven.jpa.mysql.entity.OrderEntity;
 import com.pragma.plazoleta_microservice.adapters.driven.jpa.mysql.entity.RestaurantEntity;
 import com.pragma.plazoleta_microservice.adapters.driven.jpa.mysql.exception.ConstantsAdapter;
@@ -9,6 +10,7 @@ import com.pragma.plazoleta_microservice.adapters.driven.jpa.mysql.exception.Ord
 import com.pragma.plazoleta_microservice.adapters.driven.jpa.mysql.exception.RoleNotCorrectException;
 import com.pragma.plazoleta_microservice.adapters.driven.jpa.mysql.mapper.IOrderEntityMapper;
 import com.pragma.plazoleta_microservice.adapters.driven.jpa.mysql.repository.IDishRepository;
+import com.pragma.plazoleta_microservice.adapters.driven.jpa.mysql.repository.IEmployeeWithRestaurantRepository;
 import com.pragma.plazoleta_microservice.adapters.driven.jpa.mysql.repository.IOrderRepository;
 import com.pragma.plazoleta_microservice.adapters.driven.jpa.mysql.repository.IRestaurantRepository;
 import com.pragma.plazoleta_microservice.adapters.drivin.http.dto.response.OwnerResponse;
@@ -20,13 +22,17 @@ import com.pragma.plazoleta_microservice.domain.exceptions.RestaurantNotFoundExc
 import com.pragma.plazoleta_microservice.domain.exceptions.UserNotFoundException;
 import com.pragma.plazoleta_microservice.domain.model.DishQuantify;
 import com.pragma.plazoleta_microservice.domain.model.Order;
+import com.pragma.plazoleta_microservice.domain.spi.IEmployeeRestaurantPersistencePort;
 import com.pragma.plazoleta_microservice.domain.spi.IOrderPersistencePort;
 import com.pragma.plazoleta_microservice.domain.spi.ISecurityPersistencePort;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 
 @RequiredArgsConstructor
@@ -40,6 +46,10 @@ public class OrderAdapter  implements IOrderPersistencePort {
     private final IUserClient userClient;
 
     private final IDishRepository dishRepository;
+
+    private final ISecurityPersistencePort securityPersistencePort;
+
+    private final IEmployeeWithRestaurantRepository employeeWithRestaurantRepository;
 
 
 
@@ -84,5 +94,17 @@ public class OrderAdapter  implements IOrderPersistencePort {
         }
         orderEntity.setDishes(dishEntities);
         orderRepository.save(orderEntity);
+    }
+
+    @Override
+    public List<Order> getOrders(Integer page, Integer size, String status) {
+
+        Long idEmployee = securityPersistencePort.getIdUser();
+        Long restaurantId = employeeWithRestaurantRepository.findRestaurantIdByEmployee(idEmployee).get().getRestaurantId();
+
+        Pageable pagination = PageRequest.of(page, size);
+        List<OrderEntity> orderEntities = orderRepository.findByRestaurantIdAndStatus(restaurantId, status,  pagination).getContent();
+
+        return orderEntityMapper.toModelList(orderEntities);
     }
 }

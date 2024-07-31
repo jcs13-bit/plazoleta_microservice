@@ -3,6 +3,7 @@ package com.pragma.plazoleta_microservice.adapters.driven.jpa.mysql.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -12,6 +13,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Getter
 public class EmployeeWithRestaurantEntity {
 
     @Id
