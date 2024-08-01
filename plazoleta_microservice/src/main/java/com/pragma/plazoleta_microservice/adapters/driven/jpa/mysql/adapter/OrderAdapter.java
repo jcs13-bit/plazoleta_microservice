@@ -20,6 +20,7 @@ import com.pragma.plazoleta_microservice.domain.model.DishQuantify;
 import com.pragma.plazoleta_microservice.domain.model.Order;
 import com.pragma.plazoleta_microservice.domain.spi.IOrderPersistencePort;
 import com.pragma.plazoleta_microservice.domain.spi.ISecurityPersistencePort;
+import com.pragma.plazoleta_microservice.util.StatusVerificationEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -134,6 +135,27 @@ public class OrderAdapter  implements IOrderPersistencePort {
 
         return smsClient.sendCode(phone).toString();
 
+    }
+
+    @Override
+    public String deliverOrder(Long idOrder, String code) {
+
+        OrderEntity orderEntity = orderRepository.findById(idOrder).orElseThrow(() -> new OrderNotFoundException(ConstantsAdapter.ORDER_NOT_FOUND));
+        if(!orderEntity.getStatus().equals(ConstantsAdapter.STATUS_READY)) {
+            throw new OrderStateChangeException(ConstantsAdapter.ORDER_STATE_CHANGE_EXCEPTION);
+        }
+        String phone = userClient.getUserById(orderEntity.getClientId()).getCellphone();
+
+        StatusVerificationEnum status = smsClient.sendVerificationCode(phone, code);
+        if (status == null) {
+            throw new InvalidCodeException(ConstantsAdapter.ERROR_CODE_INVALID_EXCEPTION_MESSAGE);
+        } else if (status== StatusVerificationEnum.PENDING) {
+            throw new InvalidCodeException(ConstantsAdapter.CODE_INVALID_EXCEPTION_MESSAGE);
+        }
+        orderEntity.setStatus(nextStatus(orderEntity.getStatus()));
+        orderRepository.save(orderEntity);
+
+        return StatusVerificationEnum.valueOf(status.name()).toString();
     }
 
 
