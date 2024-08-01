@@ -16,6 +16,10 @@ public class ConstantsAdapter {
     public static final String STATUS_INVALID_EXCEPTION_MESSAGE = "The status is invalid";
     public static final String ORDER_NOT_FOUND = "Order not found";
 
+    public static final String ERROR_CODE_INVALID_EXCEPTION_MESSAGE = "Error validation code";
+
+    public static final String CODE_INVALID_EXCEPTION_MESSAGE = "The code is invalid";
+
 
 
 

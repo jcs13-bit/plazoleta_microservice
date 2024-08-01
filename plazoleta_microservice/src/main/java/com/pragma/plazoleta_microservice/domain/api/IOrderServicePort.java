@@ -15,4 +15,9 @@ public interface IOrderServicePort {
 
     String readyOrder(Long idOrder);
 
+
+    String deliverOrder(Long idOrder, String code);
+
+
+
 }

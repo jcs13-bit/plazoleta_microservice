@@ -11,4 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface ISmsClient {
     @PostMapping(value = "/sms/sendCode")
     StatusVerificationEnum sendCode(@RequestParam("phone") String phone);
+
+    @PostMapping(value = "/sms/verifyCode")
+    StatusVerificationEnum sendVerificationCode(@RequestParam("phone") String phone, @RequestParam("code") String code);
 }
