@@ -29,5 +29,11 @@ public class OrderUseCase implements IOrderServicePort {
     public void takeOrder(Long idOrder) {
         orderPersistencePort.takeOrder(idOrder);
     }
+    @Override
+    public String readyOrder(Long idOrder) {
+        return orderPersistencePort.readyOrder(idOrder);
+
+    }
+
 
 }

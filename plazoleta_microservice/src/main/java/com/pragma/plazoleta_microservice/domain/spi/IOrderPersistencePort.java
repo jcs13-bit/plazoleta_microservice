@@ -12,4 +12,6 @@ public interface IOrderPersistencePort {
 
 
     void takeOrder(Long idOrder);
+
+    String readyOrder(Long idOrder);
 }

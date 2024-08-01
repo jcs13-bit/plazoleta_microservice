@@ -17,9 +17,6 @@ import java.util.List;
 public class AddOrderRequest {
 
 
-    @FutureOrPresent(message = DtoConstants.FIELD_DATE_FUTURE_MESSAGE)
-    private LocalDate date;
-
     @NotNull(message = DtoConstants.FIELD_CHEF_ID_NULL_MESSAGE)
     private Long chefId;
 
