@@ -1,5 +1,6 @@
 package com.pragma.plazoleta_microservice.configuration;
 
+import com.pragma.plazoleta_microservice.adapters.client.ISmsClient;
 import com.pragma.plazoleta_microservice.adapters.client.IUserClient;
 import com.pragma.plazoleta_microservice.adapters.driven.jpa.mysql.adapter.*;
 import com.pragma.plazoleta_microservice.adapters.driven.jpa.mysql.mapper.IDishEntityMapper;
@@ -35,6 +36,8 @@ public class BeanConfiguration {
 
     private final IUserClient userClient;
 
+    private final ISmsClient smsClient;
+
 
     private final IEmployeeWithRestaurantRepository employeeWithRestaurantRepository;
 
@@ -42,6 +45,9 @@ public class BeanConfiguration {
 
     private final IOrderEntityMapper orderEntityMapper;
     private final IOrderRepository orderRepository;
+
+
+
 
 
 
@@ -84,7 +90,7 @@ public class BeanConfiguration {
     }
     @Bean
     public IOrderPersistencePort orderPersistencePort(ISecurityPersistencePort securityPersistencePort) {
-        return new OrderAdapter(orderRepository, orderEntityMapper,restaurantRepository,userClient,dishRepository,securityPersistencePort, employeeWithRestaurantRepository);
+        return new OrderAdapter(orderRepository, orderEntityMapper,restaurantRepository,userClient,smsClient,dishRepository,securityPersistencePort, employeeWithRestaurantRepository);
 
     }
     @Bean
@@ -92,6 +98,8 @@ public class BeanConfiguration {
 
         return new OrderUseCase(orderPersistencePort(securityPersistencePort));
     }
+
+
 
 
 

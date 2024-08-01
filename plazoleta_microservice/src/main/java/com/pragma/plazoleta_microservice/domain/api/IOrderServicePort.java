@@ -13,4 +13,6 @@ public interface IOrderServicePort {
 
     void takeOrder(Long idOrder);
 
+    String readyOrder(Long idOrder);
+
 }
