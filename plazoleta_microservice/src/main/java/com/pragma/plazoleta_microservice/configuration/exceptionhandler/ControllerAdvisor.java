@@ -115,6 +115,12 @@ public class ControllerAdvisor {
         return ResponseEntity.badRequest().body(new ExceptionResponse(ConstantsAdapter.CODE_INVALID_EXCEPTION_MESSAGE, HttpStatus.CONFLICT.toString(), LocalDateTime.now()));
     }
 
+    @ExceptionHandler(ErrorSendMessageException.class)
+    public ResponseEntity<ExceptionResponse> handleErrorSendMessageException(){
+        return ResponseEntity.badRequest().body(new ExceptionResponse(ConstantsAdapter.ERROR_SEND_MESSAGE, HttpStatus.CONFLICT.toString(), LocalDateTime.now()));
+    }
+
+
 
 
 

@@ -61,6 +61,14 @@ public class OrderRestControllerAdapter {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
+    //@PreAuthorize("hasRole('CLIENT')")
+    @PatchMapping("/cancelOrder")
+    public ResponseEntity<Void> cancelOrder(@RequestParam  Long idOrder) {
+        orderServicePort.cancelOrder(idOrder);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+
     
     
     

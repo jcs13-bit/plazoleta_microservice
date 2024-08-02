@@ -1,6 +1,7 @@
 package com.pragma.plazoleta_microservice.domain.api.usecase;
 
 import com.pragma.plazoleta_microservice.domain.api.IOrderServicePort;
+import com.pragma.plazoleta_microservice.domain.exceptions.ConstantsDomain;
 import com.pragma.plazoleta_microservice.domain.model.Order;
 import com.pragma.plazoleta_microservice.domain.spi.IOrderPersistencePort;
 
@@ -38,6 +39,12 @@ public class OrderUseCase implements IOrderServicePort {
     @Override
     public String deliverOrder(Long idOrder, String code) {
         return orderPersistencePort.deliverOrder(idOrder, code).toString();
+    }
+
+    @Override
+    public String cancelOrder(Long idOrder) {
+         orderPersistencePort.cancelOrder(idOrder);
+         return ConstantsDomain.CANCEL_ORDER;
     }
 
 

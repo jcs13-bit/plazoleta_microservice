@@ -19,6 +19,8 @@ public class ConstantsDomain {
 
     public static final String RESTAURANT_NOT_FOUND = "Restaurant not found";
 
+    public static final String CANCEL_ORDER = "The order has been successfully canceled";
+
 
 
 }
