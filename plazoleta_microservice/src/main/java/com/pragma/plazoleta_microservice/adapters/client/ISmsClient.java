@@ -14,4 +14,7 @@ public interface ISmsClient {
 
     @PostMapping(value = "/sms/verifyCode")
     StatusVerificationEnum sendVerificationCode(@RequestParam("phone") String phone, @RequestParam("code") String code);
+
+    @PostMapping(value = "/sms/sendMessage")
+    String sendMessage(@RequestParam("phone") String phone, @RequestParam("message") String message);
 }

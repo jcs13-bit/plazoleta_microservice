@@ -18,6 +18,8 @@ public interface IOrderServicePort {
 
     String deliverOrder(Long idOrder, String code);
 
+    String cancelOrder(Long idOrder);
+
 
 
 }

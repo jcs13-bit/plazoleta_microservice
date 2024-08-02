@@ -83,7 +83,6 @@ public class OrderAdapter  implements IOrderPersistencePort {
         orderEntity.setChefId(order.getChefId());
         orderEntity.setRestaurantId(order.getRestaurantId());
         orderEntity.setStatus(ConstantsAdapter.STATUS_PENDING);
-        orderEntity.setDate(order.getDate());
         List<DishEntity> dishEntities = new ArrayList<>();
         for (DishQuantify dishQuantify : order.getDishesQuantify() ) {
             DishEntity dishEntity = dishRepository.findByRestaurantIdAndId(order.getRestaurantId(), dishQuantify.getDishId())
@@ -156,6 +155,26 @@ public class OrderAdapter  implements IOrderPersistencePort {
         orderRepository.save(orderEntity);
 
         return StatusVerificationEnum.valueOf(status.name()).toString();
+    }
+
+    @Override
+    public String cancelOrder(Long idOrder) {
+
+        OrderEntity orderEntity = orderRepository.findById(idOrder).orElseThrow(() -> new OrderNotFoundException(ConstantsAdapter.ORDER_NOT_FOUND));
+        String phone = userClient.getUserById(orderEntity.getClientId()).getCellphone();
+
+        if(!orderEntity.getStatus().equals(ConstantsAdapter.STATUS_PENDING)) {
+            String status = smsClient.sendMessage(phone,ConstantsAdapter.MESSAGE_CANCELLED);
+            if (!status.equals(ConstantsAdapter.SEND)) {
+                throw new ErrorSendMessageException(ConstantsAdapter.ERROR_SEND_MESSAGE);
+            }
+            return null;
+        }else{
+            orderEntity.setStatus(ConstantsAdapter.STATUS_CANCELLED);
+            orderRepository.save(orderEntity);
+            return ConstantsAdapter.ORDER_CANCELLED;
+        }
+
     }
 
 
